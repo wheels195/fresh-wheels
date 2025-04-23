@@ -6,18 +6,32 @@ interface LogoProps {
   className?: string
   dark?: boolean
   fontWeight?: string
+  onClick?: () => void
 }
 
-export default function CustomLogo({ className = "", dark = false, fontWeight = "font-bold" }: LogoProps) {
+export default function CustomLogo({ className = "", dark = false, fontWeight = "font-bold", onClick }: LogoProps) {
   // Always use white text for better visibility on dark backgrounds
   const textColor = "text-white"
 
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+    if (onClick) onClick()
+  }
+
   return (
     <motion.div
-      className={`flex items-center ${className}`}
+      className={`flex items-center ${className} cursor-pointer`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleClick()
+        }
+      }}
     >
       <div className="flex items-center">
         <div className={`${fontWeight} text-lg md:text-xl font-playfair tracking-wider ${textColor}`}>FRESH</div>

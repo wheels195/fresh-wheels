@@ -2,10 +2,11 @@
 
 import type React from "react"
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import { motion } from "framer-motion"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -20,6 +21,7 @@ import FAQSection from "@/components/faq-section"
 import GallerySection from "@/components/gallery-section"
 
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const aboutRef = useRef<HTMLDivElement>(null)
   const servicesRef = useRef<HTMLDivElement>(null)
   const galleryRef = useRef<HTMLDivElement>(null)
@@ -60,6 +62,15 @@ export default function Home() {
       default:
         window.scrollTo({ top: 0, behavior: "smooth" })
     }
+  }
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const handleMobileNavClick = (section: string) => {
+    scrollToSection(section)
+    setIsMobileMenuOpen(false)
   }
 
   const services = [
@@ -295,61 +306,34 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-white">
       {/* Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm shadow-md py-4">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          {/* Logo on left */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          {/* Logo */}
           <div className="flex items-center">
-            <CustomLogo fontWeight="font-semibold" />
+            <CustomLogo className="h-8 w-auto" />
           </div>
 
-          {/* Navigation items */}
-          <nav className="hidden md:flex items-center justify-center space-x-8">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="font-light transition-colors text-gray-400 hover:text-white text-sm"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => scrollTo(aboutRef)}
-              className="font-light transition-colors text-gray-400 hover:text-white text-sm"
-            >
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-8">
+            <button onClick={() => scrollToSection("about")} className="text-white hover:text-gray-300 transition-colors">
               About
             </button>
-            <button
-              onClick={() => scrollTo(servicesRef)}
-              className="font-light transition-colors text-gray-400 hover:text-white text-sm"
-            >
+            <button onClick={() => scrollToSection("services")} className="text-white hover:text-gray-300 transition-colors">
               Services
             </button>
-            <button
-              onClick={() => scrollTo(galleryRef)}
-              className="font-light transition-colors text-gray-400 hover:text-white text-sm"
-            >
+            <button onClick={() => scrollToSection("gallery")} className="text-white hover:text-gray-300 transition-colors">
               Gallery
             </button>
-            <button
-              onClick={() => scrollTo(pricingRef)}
-              className="font-light transition-colors text-gray-400 hover:text-white text-sm"
-            >
+            <button onClick={() => scrollToSection("pricing")} className="text-white hover:text-gray-300 transition-colors">
               Pricing
             </button>
-            <button
-              onClick={() => scrollTo(faqRef)}
-              className="font-light transition-colors text-gray-400 hover:text-white text-sm"
-            >
+            <button onClick={() => scrollToSection("faq")} className="text-white hover:text-gray-300 transition-colors">
               FAQ
-            </button>
-            <button
-              onClick={() => scrollTo(bookingRef)}
-              className="font-light transition-colors text-gray-400 hover:text-white text-sm"
-            >
-              Contact
             </button>
           </nav>
 
-          {/* Book Now button */}
-          <div className="flex justify-end">
+          {/* Book Now button and Mobile Menu */}
+          <div className="flex items-center">
             <Button
               onClick={() => scrollTo(bookingRef)}
               className="hidden md:flex bg-white text-black hover:bg-white/90 rounded-md"
@@ -358,11 +342,64 @@ export default function Home() {
             </Button>
 
             {/* Mobile menu button */}
-            <button className="md:hidden">
-              <Menu className="h-6 w-6 text-white" />
+            <button onClick={toggleMobileMenu} className="md:hidden p-2">
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6 text-white" />
+              ) : (
+                <Menu className="h-6 w-6 text-white" />
+              )}
             </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden bg-black/95 backdrop-blur-md border-t border-white/10"
+          >
+            <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+              <button
+                onClick={() => handleMobileNavClick("about")}
+                className="text-white hover:text-gray-300 transition-colors text-left py-2 text-lg"
+              >
+                About
+              </button>
+              <button
+                onClick={() => handleMobileNavClick("services")}
+                className="text-white hover:text-gray-300 transition-colors text-left py-2 text-lg"
+              >
+                Services
+              </button>
+              <button
+                onClick={() => handleMobileNavClick("gallery")}
+                className="text-white hover:text-gray-300 transition-colors text-left py-2 text-lg"
+              >
+                Gallery
+              </button>
+              <button
+                onClick={() => handleMobileNavClick("pricing")}
+                className="text-white hover:text-gray-300 transition-colors text-left py-2 text-lg"
+              >
+                Pricing
+              </button>
+              <button
+                onClick={() => handleMobileNavClick("faq")}
+                className="text-white hover:text-gray-300 transition-colors text-left py-2 text-lg"
+              >
+                FAQ
+              </button>
+              <Button
+                onClick={() => handleMobileNavClick("booking")}
+                className="bg-white text-black hover:bg-white/90 rounded-md w-full mt-2"
+              >
+                Book Now
+              </Button>
+            </nav>
+          </motion.div>
+        )}
       </header>
 
       {/* Hero Section */}

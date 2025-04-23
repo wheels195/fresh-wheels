@@ -42,12 +42,12 @@ export default function HeroSection({ onScrollToSection }) {
             </div>
           </div>
 
-          <p className="text-xl text-gray-300 mb-4 md:mb-6 font-light tracking-tighter">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 md:mb-6 font-light tracking-normal sm:tracking-tighter px-4 sm:px-0">
             <AnimatedText
               text="New England's Premier Auto Detailing Experience"
               delay={1.9}
               staggerChildren={0.02}
-              className="tracking-tighter"
+              className="inline-block"
             />
           </p>
 

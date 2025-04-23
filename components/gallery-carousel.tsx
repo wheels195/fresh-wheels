@@ -14,27 +14,27 @@ export default function GalleryCarousel() {
   // Gallery images - beautiful automobiles
   const images = [
     {
-      src: "/chatgpt_redLaFerrari.png",
+      src: "/ChatGPT_redLaFerrari.png",
       alt: "Ferrari LaFerrari with Premium Detail",
       caption: "Ferrari LaFerrari - Full Paint Correction & Ceramic Coating",
     },
     {
-      src: "/chatgpt_black lambo.png",
+      src: "/ChatGPT_black%20lambo.png",
       alt: "Black Lamborghini with Ultimate Detail",
       caption: "Lamborghini Aventador - Ultimate Detail Package & PPF",
     },
     {
-      src: "/chatgpt_blue raptor.png",
+      src: "/ChatGPT_blue%20raptor.png",
       alt: "Ford Raptor with Off-Road Detail",
       caption: "Ford Raptor - Premium Off-Road Detail & Ceramic Protection",
     },
     {
-      src: "/chatgpt_green jeep.png",
+      src: "/ChatGPT_green%20jeep.png",
       alt: "Custom Green Jeep",
       caption: "Jeep Wrangler - Full Interior & Exterior Restoration",
     },
     {
-      src: "/chatgpt_white tesla.png",
+      src: "/ChatGPT_white%20tesla.png",
       alt: "Tesla Model S Detail",
       caption: "Tesla Model S - Executive Detail & Paint Enhancement",
     },
@@ -111,19 +111,15 @@ export default function GalleryCarousel() {
           >
             <div className="relative w-full h-full">
               <Image
-                src={images[currentIndex].src || "/placeholder.svg"}
+                src={images[currentIndex].src}
                 alt={images[currentIndex].alt}
                 fill
-                className="object-cover brightness-110 contrast-105"
+                className="object-cover"
                 priority
-                quality={100}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                loading="eager"
+                sizes="100vw"
                 style={{
                   objectFit: 'cover',
                   objectPosition: 'center',
-                  transform: 'scale(1.01)', // Slight scale to prevent white edges
-                  filter: 'brightness(1.1) contrast(1.05)', // Additional brightness boost
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-95" />
