@@ -60,7 +60,7 @@ export default function Home() {
         scrollTo(faqRef)
         break
       case "contact":
-        scrollTo(aboutRef)
+        scrollTo(bookingRef)
         break
       default:
         window.scrollTo({ top: 0, behavior: "smooth" })
