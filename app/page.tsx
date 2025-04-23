@@ -59,6 +59,9 @@ export default function Home() {
       case "faq":
         scrollTo(faqRef)
         break
+      case "contact":
+        scrollTo(aboutRef)
+        break
       default:
         window.scrollTo({ top: 0, behavior: "smooth" })
     }
@@ -330,6 +333,9 @@ export default function Home() {
             <button onClick={() => scrollToSection("faq")} className="text-white hover:text-gray-300 transition-colors">
               FAQ
             </button>
+            <button onClick={() => scrollToSection("contact")} className="text-white hover:text-gray-300 transition-colors">
+              Contact
+            </button>
           </nav>
 
           {/* Book Now button and Mobile Menu */}
@@ -390,6 +396,12 @@ export default function Home() {
                 className="text-white hover:text-gray-300 transition-colors text-left py-2 text-lg"
               >
                 FAQ
+              </button>
+              <button
+                onClick={() => handleMobileNavClick("contact")}
+                className="text-white hover:text-gray-300 transition-colors text-left py-2 text-lg"
+              >
+                Contact
               </button>
               <Button
                 onClick={() => handleMobileNavClick("booking")}
